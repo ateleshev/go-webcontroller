@@ -43,6 +43,10 @@ func (this *Controller) Configure(request *http.Request) { // {{{
 	this.request = request
 } // }}}
 
+func (this *Controller) Prepare() error { // {{{
+	return nil
+} // }}}
+
 // [Error]
 
 func (this *Controller) Error(writer http.ResponseWriter) { // {{{
