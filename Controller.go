@@ -9,28 +9,42 @@ import (
 type Controller struct {
 	webcontext.IController
 
+	// [Protected]
 	context *webcontext.Context
 	request *http.Request
+
+	// [Public]
+	Err error
 }
 
-// [Context]
+// [Error]
 
-func (this *Controller) Context() *webcontext.Context { // {{{
-	return this.context
+func (this *Controller) HasError() bool { // {{{
+	return this.Err != nil
 } // }}}
+
+func (this *Controller) Error() string { // {{{
+	return this.Err.Error()
+} // }}}
+
+// [Context]
 
 func (this *Controller) HasContext() bool { // {{{
 	return this.context != nil
 } // }}}
 
-// [Request]
-
-func (this *Controller) Request() *http.Request { // {{{
-	return this.request
+func (this *Controller) Context() *webcontext.Context { // {{{
+	return this.context
 } // }}}
+
+// [Request]
 
 func (this *Controller) HasRequest() bool { // {{{
 	return this.request != nil
+} // }}}
+
+func (this *Controller) Request() *http.Request { // {{{
+	return this.request
 } // }}}
 
 // [Controller]
@@ -49,6 +63,6 @@ func (this *Controller) Prepare() error { // {{{
 
 // [Error]
 
-func (this *Controller) Error(writer http.ResponseWriter) { // {{{
+func (this *Controller) RenderError(writer http.ResponseWriter) { // {{{
 	http.Error(writer, "Forbidden", http.StatusForbidden)
 } // }}}
