@@ -7,7 +7,7 @@ import (
 )
 
 type Controller struct {
-	webcontext.IController
+	webcontext.ControllerInterface
 
 	// [Protected]
 	context *webcontext.Context
