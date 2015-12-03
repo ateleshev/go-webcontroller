@@ -1,12 +1,9 @@
 package webcontroller
 
 import (
-	"encoding/json"
 	"net/http"
-)
 
-const (
-	CONTENT_TYPE_JSON = "application/json"
+	"github.com/ArtemTeleshev/go-webcontext"
 )
 
 type JsonController struct {
@@ -15,18 +12,6 @@ type JsonController struct {
 	Data interface{}
 }
 
-func (this *JsonController) Render(writer http.ResponseWriter) error { // {{{
-	writer.Header().Set("Content-Type", CONTENT_TYPE_JSON)
-	// Write headers
-	writer.WriteHeader(http.StatusOK)
-
-	json, err := json.Marshal(this.Data)
-	if err != nil {
-		return err
-	}
-
-	// Write body
-	writer.Write(json)
-
-	return nil
+func (this *JsonController) Execute(request *http.Request) webcontext.ViewInterface { // {{{
+	return NewJsonView(this.Context(), request, this.Data)
 } // }}}

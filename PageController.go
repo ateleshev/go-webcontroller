@@ -19,25 +19,20 @@ type PageController struct {
 	TemplateName string
 }
 
-func (this *PageController) Initialize(context *webcontext.Context) { // {{{
-	this.Controller.Initialize(context)
+// [Execution]
 
-	// Template
-
-	if len(this.TemplateName) == 0 {
+func (this *PageController) PageTemplate() *webpage.PageTemplate { // {{{
+	if this.TemplateName == "" {
 		this.TemplateName = webpage.DEFAULT_TEMPLATE_NAME
 	}
 
-	if len(this.TemplatePath) == 0 {
+	if this.TemplatePath == "" {
 		this.TemplatePath, _ = os.Getwd()
 	}
+
+	return webpage.NewPageTemplate(this.TemplateName, this.TemplatePath)
 } // }}}
 
-func (this *PageController) Render(writer http.ResponseWriter) error { // {{{
-	template := webpage.NewPageTemplate(this.TemplateName, this.TemplatePath)
-	if err := template.Execute(writer, this.Page); err != nil {
-		return err
-	}
-
-	return nil
+func (this *PageController) Execute(request *http.Request) webcontext.ViewInterface { // {{{
+	return NewPageView(this.Context(), request, this.Page, this.PageTemplate())
 } // }}}

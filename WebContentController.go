@@ -4,8 +4,9 @@ import (
 	"net/http"
 	"path"
 
-	"github.com/gorilla/mux"
+	"github.com/gorilla/mux" // http://www.gorillatoolkit.org/pkg/mux
 
+	"github.com/ArtemTeleshev/go-webcontext"
 	"github.com/ArtemTeleshev/go-webpage"
 )
 
@@ -13,17 +14,15 @@ type WebContentController struct {
 	PageController
 }
 
-func NewWebContentController() *WebContentController { // {{{
-	return &WebContentController{}
+// [Initialization]
+
+func (this *WebContentController) Register(route *mux.Route) { // {{{
+	route.PathPrefix("/")
 } // }}}
 
-func (this *WebContentController) Register(router *mux.Router) *mux.Route { // {{{
-	return router.NewRoute().PathPrefix("/")
-} // }}}
+// [Execution]
 
-func (this *WebContentController) Render(writer http.ResponseWriter) error { // {{{
+func (this *WebContentController) Execute(request *http.Request) webcontext.ViewInterface { // {{{
 	dir := path.Join(this.TemplatePath, webpage.TEMPLATE_DIR_MAIN, this.TemplateName, webpage.TEMPLATE_DIR_WEB)
-	http.FileServer(http.Dir(dir)).ServeHTTP(writer, this.Request())
-
-	return nil
+	return NewWebContentView(this.Context(), request, dir)
 } // }}}
