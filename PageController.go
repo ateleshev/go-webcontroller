@@ -19,9 +19,7 @@ type PageController struct {
 	TemplateName string
 }
 
-// [Execution]
-
-func (this *PageController) PageTemplate() *webpage.PageTemplate { // {{{
+func (this *PageController) SetDefaults() { // {{{
 	if this.TemplateName == "" {
 		this.TemplateName = webpage.DEFAULT_TEMPLATE_NAME
 	}
@@ -29,7 +27,12 @@ func (this *PageController) PageTemplate() *webpage.PageTemplate { // {{{
 	if this.TemplatePath == "" {
 		this.TemplatePath, _ = os.Getwd()
 	}
+} // }}}
 
+// [Execution]
+
+func (this *PageController) PageTemplate() *webpage.PageTemplate { // {{{
+	this.SetDefaults()
 	return webpage.NewPageTemplate(this.TemplateName, this.TemplatePath)
 } // }}}
 
