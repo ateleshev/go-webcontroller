@@ -1,14 +1,12 @@
 package webcontroller
 
 import (
+	"compress/gzip"
 	"encoding/json"
 	"net/http"
+	"strings"
 
 	"github.com/ArtemTeleshev/go-webcontext"
-)
-
-const (
-	CONTENT_TYPE_JSON = "application/json"
 )
 
 func NewJsonView(context *webcontext.Context, request *http.Request, data interface{}) *JsonView { // {{{
@@ -26,6 +24,13 @@ type JsonView struct {
 
 func (this *JsonView) Render(responseWriter http.ResponseWriter) error { // {{{
 	responseWriter.Header().Set("Content-Type", CONTENT_TYPE_JSON)
+
+	acceptEncoding := this.Request().Header.Get("Accept-Encoding")
+	if strings.Contains(acceptEncoding, CONTEN_ENCODING_GZIP) {
+		// responseWriter.Header().Add("Content-Type", CONTENT_TYPE_XGZIP)
+		responseWriter.Header().Set("Content-Encoding", CONTEN_ENCODING_GZIP)
+	}
+
 	// Write headers
 	responseWriter.WriteHeader(http.StatusOK)
 
@@ -35,7 +40,13 @@ func (this *JsonView) Render(responseWriter http.ResponseWriter) error { // {{{
 	}
 
 	// Write body
-	responseWriter.Write(json)
+	if strings.Contains(acceptEncoding, CONTEN_ENCODING_GZIP) {
+		gz := gzip.NewWriter(responseWriter)
+		defer gz.Close()
+		gz.Write(json)
+	} else {
+		responseWriter.Write(json)
+	}
 
 	return nil
 } // }}}
