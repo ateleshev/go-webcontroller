@@ -6,8 +6,8 @@ import (
 
 	"github.com/gorilla/mux" // http://www.gorillatoolkit.org/pkg/mux
 
-	"github.com/ArtemTeleshev/go-webcontext"
-	"github.com/ArtemTeleshev/go-webpage"
+	"github.com/ateleshev/go-webcontext"
+	"github.com/ateleshev/go-webpage"
 )
 
 type WebContentController struct {

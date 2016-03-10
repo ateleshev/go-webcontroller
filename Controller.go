@@ -1,7 +1,7 @@
 package webcontroller
 
 import (
-	"github.com/ArtemTeleshev/go-webcontext"
+	"github.com/ateleshev/go-webcontext"
 )
 
 type Controller struct {

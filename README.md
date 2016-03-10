@@ -1,9 +1,9 @@
 # go-webcontroller
 ```
-go get -u github.com/ArtemTeleshev/go-webcontroller
+go get -u github.com/ateleshev/go-webcontroller
 ```
 
 ```
-import "github.com/ArtemTeleshev/go-webcontroller"
+import "github.com/ateleshev/go-webcontroller"
 ```
 

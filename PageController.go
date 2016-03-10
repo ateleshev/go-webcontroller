@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/ArtemTeleshev/go-webcontext"
-	"github.com/ArtemTeleshev/go-webpage"
+	"github.com/ateleshev/go-webcontext"
+	"github.com/ateleshev/go-webpage"
 )
 
 type PageController struct {

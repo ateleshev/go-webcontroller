@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/ArtemTeleshev/go-webcontext"
+	"github.com/ateleshev/go-webcontext"
 )
 
 func NewJsonView(context *webcontext.Context, request *http.Request, data interface{}) *JsonView { // {{{

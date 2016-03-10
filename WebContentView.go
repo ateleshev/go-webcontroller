@@ -3,7 +3,7 @@ package webcontroller
 import (
 	"net/http"
 
-	"github.com/ArtemTeleshev/go-webcontext"
+	"github.com/ateleshev/go-webcontext"
 )
 
 func NewWebContentView(context *webcontext.Context, request *http.Request, dir string) *WebContentView { // {{{

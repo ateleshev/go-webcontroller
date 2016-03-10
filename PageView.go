@@ -3,8 +3,8 @@ package webcontroller
 import (
 	"net/http"
 
-	"github.com/ArtemTeleshev/go-webcontext"
-	"github.com/ArtemTeleshev/go-webpage"
+	"github.com/ateleshev/go-webcontext"
+	"github.com/ateleshev/go-webpage"
 )
 
 func NewPageView(context *webcontext.Context, request *http.Request, page *webpage.Page, template *webpage.PageTemplate) *PageView { // {{{
