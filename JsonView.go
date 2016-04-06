@@ -2,9 +2,11 @@ package webcontroller
 
 import (
 	"compress/gzip"
-	"encoding/json"
 	"net/http"
 	"strings"
+
+	// encoder "encoding/json"
+	encoder "github.com/pquerna/ffjson/ffjson"
 
 	"github.com/ateleshev/go-webcontext"
 )
@@ -34,7 +36,7 @@ func (this *JsonView) Render(responseWriter http.ResponseWriter) error { // {{{
 	// Write headers
 	responseWriter.WriteHeader(http.StatusOK)
 
-	json, err := json.Marshal(this.data)
+	json, err := encoder.Marshal(this.data)
 	if err != nil {
 		return err
 	}
