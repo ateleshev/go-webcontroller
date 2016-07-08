@@ -5,8 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	// encoder "encoding/json"
-	encoder "github.com/pquerna/ffjson/ffjson"
+	encoder "encoding/json"
 
 	"github.com/ateleshev/go-webcontext"
 )
